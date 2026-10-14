@@ -1,0 +1,6 @@
+import { useState } from 'react';
+import ProductEditor from './components/ProductEditor.jsx';
+import ProductList from './components/ProductList.jsx';
+
+const starting=[{id:1,name:'Canvas Backpack',sku:'BAG-104',category:'Accessories',price:2499,stock:18},{id:2,name:'Desk Light',sku:'HME-208',category:'Home',price:1799,stock:7},{id:3,name:'Wireless Mouse',sku:'TEC-312',category:'Electronics',price:1299,stock:24},{id:4,name:'Grid Notebook',sku:'STA-410',category:'Stationery',price:349,stock:42}];
+export default function App(){const [products,setProducts]=useState(starting);const [selectedId,setSelectedId]=useState(null);const [message,setMessage]=useState('');function edit(product){setSelectedId(product.id);setMessage('')}function save(updated){setProducts(current=>current.map(product=>product.id===updated.id?updated:product));setSelectedId(null);setMessage(`${updated.name} was updated successfully.`)}return <main className="page"><header><div><span>UNIT 5 · PRACTICAL 8</span><h1>Inventory editor</h1><p>Select a product to edit its existing information.</p></div><b className="tag">UPDATE OPERATION</b></header><div className="layout"><ProductList products={products} selectedId={selectedId} onEdit={edit} message={message}/><ProductEditor products={products} selectedId={selectedId} onSave={save} onCancel={()=>setSelectedId(null)}/></div></main>}
